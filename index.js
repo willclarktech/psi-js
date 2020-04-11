@@ -17,7 +17,10 @@ const server = Server()
 
 // Generate RSA Keys
 console.time('Generating keys')
-const { privateKey, publicKey } = generateRSAKeyPair(params.RSA.MODULUS, params.RSA.EXPONENT)
+const { privateKey, publicKey } = generateRSAKeyPair(
+  params.RSA.MODULUS,
+  params.RSA.EXPONENT
+)
 console.timeEnd('Generating keys')
 
 console.time('Generating random factors')
@@ -31,19 +34,21 @@ console.timeEnd('Creating bloom filter')
 // ONLINE
 //////////////////
 
-// Client blind batches the set with the random factors to be sent to the server
+// Client creates a blind to be sent to the server
 console.time('Blind batching')
 const A = client.blindBatch(Y, randomFactors)
 console.timeEnd('Blind batching')
 
-// Server signs the blind and returns the result to the client
+// Server signs the blind and returns the signature(s) to the client
 console.time('Signing batch')
 const B = server.signBatch(privateKey, A)
 console.timeEnd('Signing batch')
 
-// Client then finds the intersection and the server has learned nothing about the client's set
+// Client then finds the intersection
 console.time('Finding intersection')
 const X_Y = client.intersect(Y, B, randomFactors, bf, publicKey)
 console.timeEnd('Finding intersection')
 
-console.log('Intersection:', X_Y)
+console.log(`[${X.slice(0, 10).join(', ')} ...] - Original X`)
+console.log(`[${Y.slice(0, 10).join(', ')} ...] - Original Y`)
+console.log(`[${X_Y.slice(0, 10).join(', ')} ...] - Intersection`)

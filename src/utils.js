@@ -16,7 +16,6 @@ const params = Object.freeze({
   CLIENT: {
     MAX_INPUTS: 1024
   }
-
 })
 
 /**
@@ -112,7 +111,8 @@ const sign = (key, pt) => decrypt(key, pt)
  * @param errorRate Error rate limit percentage
  * @returns {BloomFilter}
  */
-const newBf = (items, errorRate) => BloomFilter.from.call(BloomFilter, items, errorRate)
+const newBf = (items, errorRate) =>
+  BloomFilter.from.call(BloomFilter, items, errorRate)
 
 /**
  * Save a BloomFilter to JSON
@@ -134,7 +134,8 @@ const loadBf = json => BloomFilter.fromJSON.call(BloomFilter, json)
  * @param e
  * @returns {privateKey, publicKey}
  */
-const generateRSAKeyPair = (bits, e) => forge.rsa.generateKeyPair.call(forge, { bits, e })
+const generateRSAKeyPair = (bits, e) =>
+  forge.rsa.generateKeyPair.call(forge, { bits, e })
 
 module.exports = {
   params,

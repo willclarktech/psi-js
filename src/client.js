@@ -5,7 +5,8 @@ const Client = () => {
    * Generate random factors
    * @name Client#generateRandomFactors
    * @param publicKey RSA public  key
-   * @returns {Array<[BigInteger, BigInteger]>} [multiplicative inverse, encrypted]
+   * @returns {Array<[BigInteger, BigInteger]>} [multiplicative inverse,
+   * encrypted]
    */
   const generateRandomFactors = publicKey =>
     Array.from({ length: params.CLIENT.MAX_INPUTS }).map(_ => {
