@@ -21,7 +21,7 @@ const params = Object.freeze({
 /**
  * Returns a random BigInteger between a specified range and step
  * @param args
- * @returns {bigInt.BigInteger}
+ * @returns {BigInteger}
  */
 const randomBigInt = (...args) => bigInt.randBetween.apply(bigInt, args)
 
@@ -30,7 +30,7 @@ const randomBigInt = (...args) => bigInt.randBetween.apply(bigInt, args)
  * @param start
  * @param stop
  * @param step
- * @returns {[]|*[]}
+ * @returns {Array<Number>}
  */
 const range = (start, stop, step) => {
   if (typeof stop == 'undefined') {
