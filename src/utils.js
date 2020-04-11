@@ -19,10 +19,6 @@ const params = Object.freeze({
 })
 
 /**
- * BloomFilter Parameters =
- */
-
-/**
  * Returns a random BigInteger between a specified range and step
  * @param args
  * @returns {bigInt.BigInteger}
