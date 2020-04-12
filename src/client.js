@@ -12,9 +12,11 @@ const Client = () => {
     Array.from({ length: params.CLIENT.MAX_INPUTS }).map(_ => {
       const n = BigInt(publicKey.n)
       const r = randomBigInt(0n, n)
+      // r^-1 mod n
       const rInv = inverse(publicKey, r)
-      const rEncrypted = encrypt(publicKey, r)
-      return [rInv, rEncrypted]
+      // r^e mod n
+      const rPrime = encrypt(publicKey, r)
+      return [rInv, rPrime]
     })
 
   /**
@@ -22,13 +24,17 @@ const Client = () => {
    * @name Client#blindBatch
    * @param Y
    * @param randomFactors
+   * @param publicKey
    * @returns {Array<BigInteger>}
    */
-  const blindBatch = (Y, randomFactors) =>
-    Y.map((rf, i) => {
-      const rEncrypted = randomFactors[i][1]
-      return Y[i].multiply(rEncrypted)
+  const blindBatch = (Y, randomFactors, publicKey) => {
+    const n = BigInt(publicKey.n)
+    return Y.map((y, i) => {
+      const rPrime = randomFactors[i][1]
+      // y * r' mod n
+      return y.multiply(rPrime).mod(n)
     })
+  }
 
   /**
    * Find the intersection
@@ -44,6 +50,7 @@ const Client = () => {
     const n = BigInt(publicKey.n)
     return B.reduce((acc, b, i) => {
       const rInv = randomFactors[i][0]
+      // b * rInv mod n
       const toCheck = b.multiply(rInv).mod(n).toString()
       if (bf.has(toCheck)) {
         acc.push(Y[i])

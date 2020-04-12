@@ -12,9 +12,8 @@ const client = Client()
 const server = Server()
 
 //////////////////
-// OFFLINE SETUP
+// BASE PHASE
 //////////////////
-
 // Generate RSA Keys
 console.time('Generating keys')
 const { privateKey, publicKey } = generateRSAKeyPair(
@@ -26,17 +25,20 @@ console.timeEnd('Generating keys')
 console.time('Generating random factors')
 const randomFactors = client.generateRandomFactors(publicKey)
 console.timeEnd('Generating random factors')
+
+//////////////////
+// SETUP PHASE
+//////////////////
 console.time('Creating bloom filter')
 const bf = server.setupBf(privateKey, X)
 console.timeEnd('Creating bloom filter')
 
 //////////////////
-// ONLINE
+// ONLINE PHASE
 //////////////////
-
 // Client creates a blind to be sent to the server
 console.time('Blind batching')
-const A = client.blindBatch(Y, randomFactors)
+const A = client.blindBatch(Y, randomFactors, publicKey)
 console.timeEnd('Blind batching')
 
 // Server signs the blind and returns the signature(s) to the client
