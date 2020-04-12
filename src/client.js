@@ -25,8 +25,8 @@ const Client = () => {
    * @returns {Array<BigInteger>}
    */
   const blindBatch = (Y, randomFactors) =>
-    randomFactors.map((rf, i) => {
-      const rEncrypted = rf[1]
+    Y.map((rf, i) => {
+      const rEncrypted = randomFactors[i][1]
       return Y[i].multiply(rEncrypted)
     })
 
@@ -42,9 +42,9 @@ const Client = () => {
    */
   const intersect = (Y, B, randomFactors, bf, publicKey) => {
     const n = BigInt(publicKey.n)
-    return randomFactors.reduce((acc, rf, i) => {
-      const rInv = rf[0]
-      const toCheck = B[i].multiply(rInv).mod(n).toString()
+    return B.reduce((acc, b, i) => {
+      const rInv = randomFactors[i][0]
+      const toCheck = b.multiply(rInv).mod(n).toString()
       if (bf.has(toCheck)) {
         acc.push(Y[i])
       }

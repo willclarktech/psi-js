@@ -4,8 +4,8 @@ const Server = require('./src/server')
 const { range, params, generateRSAKeyPair } = require('./src/utils')
 
 // Begin the test with two Arrays of BigInts that we will find the intersection
-const X = range(0, 2 ** 10, 5).map(x => bigInt(x))
-const Y = range(0, 2 ** 10).map(x => bigInt(x))
+const X = range(0, 2 ** 10).map(x => bigInt(x))
+const Y = range(0, 2 ** 10, 5).map(x => bigInt(x))
 
 // Construct the Client and Server instances
 const client = Client()
