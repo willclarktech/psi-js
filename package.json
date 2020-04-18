@@ -17,7 +17,7 @@
     "private",
     "private set intersection"
   ],
-  "main": "index.js",
+  "main": "build/index.js",
   "scripts": {
     "format": "prettier --write src",
     "lint": "eslint \"./src/**/*.{js,json,ts}\"",
