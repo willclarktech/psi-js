@@ -19,7 +19,12 @@
   ],
   "main": "index.js",
   "scripts": {
+    "format": "prettier --write src",
+    "lint": "eslint \"./src/**/*.{js,json,ts}\"",
+    "lint:fix": "yarn lint --fix",
     "test": "echo \"Error: no test specified\" && exit 1",
+    "prebuild": "rm -rf build/",
+    "build": "tsc",
     "start": "node index.js"
   },
   "license": "MIT",
