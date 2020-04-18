@@ -14,5 +14,5 @@ module.exports = {
     ecmaVersion: 2020,
     sourceType: 'module'
   },
-  plugins: ['prettier', '@typescript-eslint', 'jsdoc']
+  plugins: ['prettier', '@typescript-eslint']
 }
