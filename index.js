@@ -1,5 +1,5 @@
 const bigInt = require('big-integer')
-const psi = require('./src').default // CommonJS
+const psi = require('./build').default // CommonJS
 
 // Demonstration of RSA - PSI protocol
 
@@ -24,7 +24,7 @@ const server = psi.protocol.rsa.server({
 console.timeEnd('Generating keys')
 
 // Transport the publicKey to the client. Can also save the keys.
-const { publicKey, privateKey } = server.keys
+const { publicKey } = server.keys
 
 // Create the client instance
 const client = psi.protocol.rsa.client({ publicKey })
@@ -32,7 +32,7 @@ const client = psi.protocol.rsa.client({ publicKey })
 // The client generates RF based on a maximum number of inputs the server
 // supports
 console.time('Generating random factors')
-const randomFactors = client.randomFactors()
+const randomFactors = client.getRandomFactors()
 console.timeEnd('Generating random factors')
 
 //////////////////
